@@ -72,15 +72,36 @@ namespace AppAgentIntegration.Dao
                  cmd.Parameters.Add("@p_idagent", SqlDbType.Int).Value = entity.IDAGENT;
                  cmd.Parameters.Add("@p_requestdata", SqlDbType.VarChar).Value = entity.REQUESTDATA;  
                  cmd.Parameters.Add("@p_responsedata", SqlDbType.VarChar).Value = entity.RESPONSEDATA;  
+                 cmd.Parameters.Add("@p_createddate", SqlDbType.DateTime).Value = DateTime.Now;  
+
                  cmd.CommandType = CommandType.Text;
                  cmd.ExecuteNonQuery();
                  connection.Close();
              }
          }
          
-         public void Update(LogAgentDataUpdate data)
+         public void Update(LogAgentDataUpdate entity)
          {
+             SqlConnectionStringBuilder builder = ConnectionStringBuilder.GetConnectionStringBuilder();
+             using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+             {
+                 string sql = "UPDATE LOG_AGENTDATAUPDATE SET REQUESTDATA = @p_requestdata, RESPONSEDATA = @p_responsedata, CREATEDDATE = @p_createddate WHERE IDAGENT = @p_idagent ";
+
+                 SqlCommand cmd = new SqlCommand(sql, connection);
+                 connection.Open();
+                 cmd.Parameters.Add("@p_idagent", SqlDbType.Int).Value = entity.IDAGENT;
+                 cmd.Parameters.Add("@p_requestdata", SqlDbType.VarChar).Value = entity.REQUESTDATA;  
+                 cmd.Parameters.Add("@p_responsedata", SqlDbType.VarChar).Value = entity.RESPONSEDATA;  
+                 cmd.Parameters.Add("@p_createddate", SqlDbType.DateTime).Value = DateTime.Now;  
+
+                 cmd.CommandType = CommandType.Text;
+                 cmd.ExecuteNonQuery();
+                 connection.Close();
+             }
+
+            
              
+
          }
          
          public static string SafeGetString(SqlDataReader reader, int colIndex)
