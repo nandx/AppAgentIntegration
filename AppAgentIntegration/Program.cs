@@ -1,4 +1,5 @@
-﻿using AppAgentIntegration.Service;
+﻿using System;
+using AppAgentIntegration.Service;
 
 namespace AppAgentIntegration
 {
@@ -6,8 +7,18 @@ namespace AppAgentIntegration
     {
        static void Main(string[] args)
        {
-           AgentNewService service = new AgentNewService();
-           service.ProcessData();
+           Console.WriteLine("AppAgentIntegration -- START " + DateTime.Now);
+
+           var servicenew = new AgentNewService();
+           servicenew.ProcessData();
+           
+           Console.WriteLine("AgentNewService -- END " + DateTime.Now);
+
+           
+           var serviceupdate = new AgentUpdateService();
+           serviceupdate.ProcessUpdate();
+           
+           Console.WriteLine("AppAgentIntegration -- END " + DateTime.Now);
        }
 
     }

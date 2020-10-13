@@ -24,7 +24,6 @@ namespace AppAgentIntegration.Service
                 
                 var logDao = new LogAgentDataNewDao();
                 var logAgent = logDao.FindById(payeeid);
-                Console.WriteLine("logAgent : "+logAgent);
                 if (logAgent == null)
                     ProcessData(data);
             }

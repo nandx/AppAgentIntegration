@@ -55,6 +55,8 @@
         <Compile Include="Dao\AgentDataNewDao.cs" />
         <Compile Include="Dao\ConnectionStringBuilder.cs" />
         <Compile Include="Dao\LogAgentDataNewDao.cs" />
+        <Compile Include="Dao\LogAgentDataUpdateDao.cs" />
+        <Compile Include="Dao\LogAgentDataUpdateHistoryDao.cs" />
         <Compile Include="Dao\SysParamDao.cs" />
         <Compile Include="Dto\AgentDto.cs" />
         <Compile Include="Dto\AgentPositionDto.cs" />
@@ -62,11 +64,14 @@
         <Compile Include="Dto\InstanceProfileResponseDto.cs" />
         <Compile Include="Model\AgentDataNew.cs" />
         <Compile Include="Model\LogAgentDataNew.cs" />
+        <Compile Include="Model\LogAgentDataUpdate.cs" />
+        <Compile Include="Model\LogAgentDataUpdateHistory.cs" />
         <Compile Include="Model\SysParam.cs" />
         <Compile Include="Payload\AgentNewPayload.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="Service\AgentNewService.cs" />
+        <Compile Include="Service\AgentUpdateService.cs" />
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />
