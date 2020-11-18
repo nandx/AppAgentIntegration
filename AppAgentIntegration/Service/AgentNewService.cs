@@ -17,6 +17,9 @@ namespace AppAgentIntegration.Service
         {
             AgentDataNewDao dao = new AgentDataNewDao();
             List<AgentDataNew> list = dao.GetListAgentNew();
+            if (list == null)
+                return;
+            
             foreach (var data in list)
             {
                 var payeeid = int.Parse(data.PayeeID,

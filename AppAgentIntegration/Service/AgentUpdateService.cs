@@ -17,6 +17,9 @@ namespace AppAgentIntegration.Service
             Console.WriteLine("===== syncDataAgent =====");
             var agentDao = new AgentDataNewDao();
             var list = agentDao.GetListAgentUpdate();
+            if (list == null)
+                return;
+            
             for (var i = 0; i < list.Count; i++)
             {
                 var data = list[i];

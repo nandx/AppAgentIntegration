@@ -12,6 +12,9 @@ namespace AppAgentIntegration.Service
         {
             var agentDAO = new AgentDataNewDao();
             var list = agentDAO.GetListAgentDelete();
+            if (list == null)
+                return;
+            
             for (var i = 0; i < list.Count; i++)
             {
                 var data = list[i];

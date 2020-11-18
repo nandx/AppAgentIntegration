@@ -135,7 +135,7 @@ namespace AppAgentIntegration.ClientApi
 
             var endpoint = GetParamValue(AuthTokenEnum.TASPEN_API_URL);
             var urlTaspen = endpoint +
-                            "/agent/positions?filters[0][field]=name&filters[0][operator]==&filters[0][keyword]=" +
+                            "/agent/positions?filters[0][field]=name&filters[0][operator]=like&filters[0][keyword]=" +
                             paramName;
             var client = new HttpClient();
             client.BaseAddress = new Uri(urlTaspen);
@@ -170,6 +170,7 @@ namespace AppAgentIntegration.ClientApi
             var payload = GetAuthTokenDto();
 
             var requestbody = JsonConvert.SerializeObject(payload);
+            Console.WriteLine("requestbody :: "+requestbody);
             var data = new StringContent(requestbody, Encoding.UTF8, "application/json");
 
             var response = client.PostAsync(urlTaspen, data).Result;
