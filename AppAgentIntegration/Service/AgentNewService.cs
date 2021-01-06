@@ -82,6 +82,19 @@ namespace AppAgentIntegration.Service
             if (positionAgentDto == null)
                 return null;
 
+            var licenseExpireAt = agent.ExpiryDate != null
+                ? agent.ExpiryDate.GetValueOrDefault().ToString("dd-MM-yyyy")
+                : "-";
+            var licenseNumber = agent.LicenseID != null && agent.LicenseID.Trim().Length > 0 
+                ? agent.LicenseID : "-";
+
+            var licenseStatus = "valid";
+            if (agent.EmployeeStatus == null || !agent.EmployeeStatus.Equals("Active"))
+                licenseStatus = null;
+            if ("-".Equals(licenseNumber))
+                licenseStatus = null;
+            if ("-".Equals(licenseExpireAt))
+                licenseStatus = null;
 
             var dto = new AgentNewPayloadDTO
             {
@@ -92,12 +105,10 @@ namespace AppAgentIntegration.Service
                 phone = agent.Phone != null && agent.Phone.Trim().Length > 0 ? agent.Phone : "-",
                 email = agent.EmailAddress != null && agent.EmailAddress.Trim().Length > 0 ? agent.EmailAddress : "-",
                 positionId = positionAgentDto.Id,
-                licenseNumber = agent.LicenseID != null && agent.LicenseID.Trim().Length > 0 ? agent.LicenseID : "-",
+                licenseNumber = licenseNumber,
                 licenseDate = "-",
-                licenseExpire_at = agent.ExpiryDate != null
-                    ? agent.ExpiryDate.GetValueOrDefault().ToString("dd-MM-yyyy")
-                    : "-",
-                licenseStatus = "valid" //TODO
+                licenseExpire_at = licenseExpireAt,
+                licenseStatus = licenseStatus
             };
             
 

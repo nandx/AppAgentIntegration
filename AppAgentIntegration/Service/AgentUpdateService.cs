@@ -103,7 +103,20 @@ namespace AppAgentIntegration.Service
             var positionAgentDto = agentPositionDto.ListAgentPosition.FirstOrDefault();
             if (positionAgentDto == null)
                 return null;
+            
+            var licenseExpireAt = agent.ExpiryDate != null
+                ? agent.ExpiryDate.GetValueOrDefault().ToString("dd-MM-yyyy")
+                : "-";
+            var licenseNumber = agent.LicenseID != null && agent.LicenseID.Trim().Length > 0 
+                ? agent.LicenseID : "-";
 
+            var licenseStatus = "valid";
+            if (agent.EmployeeStatus == null || !agent.EmployeeStatus.Equals("Active"))
+                licenseStatus = null;
+            if ("-".Equals(licenseNumber))
+                licenseStatus = null;
+            if ("-".Equals(licenseExpireAt))
+                licenseStatus = null;
 
             var dto = new AgentNewPayloadDTO();
             dto.instanceId = 2; //TODO (saat ini di set default = 2)
@@ -113,12 +126,10 @@ namespace AppAgentIntegration.Service
             dto.phone = agent.Phone != null && agent.Phone.Trim().Length > 0 ? agent.Phone : "-";
             dto.email = agent.EmailAddress != null && agent.EmailAddress.Trim().Length > 0 ? agent.EmailAddress : "-";
             dto.positionId = positionAgentDto.Id; //TODO
-            dto.licenseNumber = agent.LicenseID != null && agent.LicenseID.Trim().Length > 0 ? agent.LicenseID : "-";
+            dto.licenseNumber = licenseNumber;
             dto.licenseDate = "-";
-            dto.licenseExpire_at = agent.ExpiryDate != null
-                ? agent.ExpiryDate.GetValueOrDefault().ToString("dd-MM-yyyy")
-                : "-";
-            dto.licenseStatus = "valid";
+            dto.licenseExpire_at = licenseExpireAt;
+            dto.licenseStatus = licenseStatus;
 
             var payload = new AgentNewPayload();
             payload.agentProfile = dto;
