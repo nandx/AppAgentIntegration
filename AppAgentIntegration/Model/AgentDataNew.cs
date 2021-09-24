@@ -21,7 +21,7 @@ namespace AppAgentIntegration.Model
         
         public String GAOfficeCode { set; get; }
         public String GAOfficeName { set; get; }
-        public String No_Identitas { set; get; }
+        public String PERSON_ID { set; get; }
         public String LicenseID { set; get; }
         public String Phone { set; get; }
         public String EmployeeStatus { set; get; }

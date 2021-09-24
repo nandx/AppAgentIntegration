@@ -105,31 +105,35 @@ namespace AppAgentIntegration.Service
                 return null;
             
             var licenseExpireAt = agent.ExpiryDate != null
-                ? agent.ExpiryDate.GetValueOrDefault().ToString("dd-MM-yyyy")
+                ? agent.ExpiryDate.GetValueOrDefault().ToString("yyyy-MM-dd")
                 : "-";
+            // var licenseExpireAt = agent.ExpiryDate;
             var licenseNumber = agent.LicenseID != null && agent.LicenseID.Trim().Length > 0 
                 ? agent.LicenseID : "-";
 
-            var licenseStatus = "valid";
-            if (agent.EmployeeStatus == null || !agent.EmployeeStatus.Equals("Active"))
-                licenseStatus = null;
-            if ("-".Equals(licenseNumber))
-                licenseStatus = null;
-            if ("-".Equals(licenseExpireAt))
-                licenseStatus = null;
+            var licenseStatus = "";
+            if (agent.EmployeeStatus != null && agent.EmployeeStatus.StartsWith("A") && licenseNumber != null &&
+                !"-".Equals(licenseNumber) && !"-".Equals(licenseExpireAt))
+                licenseStatus = "valid";
 
             var dto = new AgentNewPayloadDTO();
             dto.instanceId = 2; //TODO (saat ini di set default = 2)
             dto.code = agent.PayeeID;
             dto.name = agent.Name;
-            dto.address = agent.Address;
+            // dto.address = agent.Address;
+            // address = agent.Address,
+            //20 Sept 2021: Address diganti GA Office Name
+            dto.address = agent.GAOfficeName != null && agent.GAOfficeName.Trim().Length > 0 ? agent.GAOfficeName : "";
             dto.phone = agent.Phone != null && agent.Phone.Trim().Length > 0 ? agent.Phone : "-";
             dto.email = agent.EmailAddress != null && agent.EmailAddress.Trim().Length > 0 ? agent.EmailAddress : "-";
             dto.positionId = positionAgentDto.Id; //TODO
             dto.licenseNumber = licenseNumber;
             dto.licenseDate = "-";
-            dto.licenseExpire_at = licenseExpireAt;
+            dto.licenseExpireAt = licenseExpireAt;
             dto.licenseStatus = licenseStatus;
+            
+            Console.WriteLine("licenseExpireAt --> "+licenseExpireAt);
+            Console.WriteLine("code --> "+dto.code);
 
             var payload = new AgentNewPayload();
             payload.agentProfile = dto;

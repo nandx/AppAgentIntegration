@@ -6,7 +6,7 @@ using AppAgentIntegration.Model;
 
 namespace AppAgentIntegration.Dao
 {
-    public class AgentDataNewDao
+    public class AgentDataNewVersion2Dao
     {
 
         public List<AgentDataNew> GetListAgentNew()
@@ -25,10 +25,8 @@ namespace AppAgentIntegration.Dao
                     e.GAOfficeName, e.PERSON_ID, e.LicenseID, e.Phone, e.EmployeeStatus,
                     e.TerminationComments, e.AccountNo, e.BankCode, e.ExpiryDate, e.TerminationDate,
                     e.CreatedDate, e.UpdatedDate, e.DeletedDate 
-                    FROM AGENTDATANEW e LEFT JOIN LOG_AGENTDATANEW la ON
-	                la.IDAGENT = e.PAYEEID 
+                    FROM AGENTDATANEW e
                     WHERE e.CreatedDate IS NOT NULL AND e.DeletedDate IS NULL 
-                    AND e.LicenseID IS NOT NULL
                     ORDER BY e.CreatedDate DESC ;";
                     //define the SqlCommand object
                     SqlCommand cmd = new SqlCommand(query, connection);
@@ -112,7 +110,7 @@ namespace AppAgentIntegration.Dao
                 {
 
                     //retrieve the SQL Server instance version
-                    const string query = @"SELECT TOP 1000 e.PayeeID, e.Name, e.JoinDate, e.Title, e.EmailAddress,
+                    const string query = @"SELECT e.PayeeID, e.Name, e.JoinDate, e.Title, e.EmailAddress,
                     e.Address, e.RecruitBy, e.RecruiterName, e.AMCode, e.AMName, 
                     e.SAMCode, e.SAMName, e.ADCode, e.ADNAme, e.GAOfficeCode, 
                     e.GAOfficeName, e.PERSON_ID, e.LicenseID, e.Phone, e.EmployeeStatus,

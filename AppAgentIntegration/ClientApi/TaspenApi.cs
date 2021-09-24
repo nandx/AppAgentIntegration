@@ -61,6 +61,7 @@ namespace AppAgentIntegration.ClientApi
 
         public string UpdateAgent(string requestbody, int id)
         {
+            Console.WriteLine("UpdateAgent - id : "+id);
             var token = GetToken();
             if (token == null)
                 return null;

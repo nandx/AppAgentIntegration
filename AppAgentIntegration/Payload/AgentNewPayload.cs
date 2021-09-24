@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace AppAgentIntegration.Payload
 {
@@ -28,7 +29,7 @@ namespace AppAgentIntegration.Payload
 
         [JsonProperty("licenseDate")] public string licenseDate { get; set; }
 
-        [JsonProperty("licenseExpire_at")] public string licenseExpire_at { get; set; }
+        [JsonProperty("licenseExpireAt")] public string licenseExpireAt { get; set; }
 
         [JsonProperty("licenseStatus")] public string licenseStatus { get; set; }
     }
